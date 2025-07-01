@@ -1,94 +1,64 @@
 # Build My Own Neural Network
 
-A complete implementation of a fully connected feedforward neural network built from scratch using Python and NumPy, without using any deep learning libraries. The project includes both a traditional **least squares classifier** and a custom **neural network** for solving the MNIST handwritten digit classification problem.
+This project demonstrates how to implement a feedforward neural network entirely from scratch using **Python** and **NumPy**. A baseline least-squares classifier is provided for comparison. Both methods are evaluated on a small subset of the MNIST handwritten digit dataset contained in this repository.
 
-## Project Highlights
-
-- Implements a neural network with linear layers, ReLU activation, and MSE loss
-- Custom forward and backward propagation for each component
-- Gradient descent optimization with numerical and analytical gradient validation
-- Classification performance evaluated on the MNIST dataset (digits 0–9)
-- One-hot encoding for labels and accuracy/loss tracking throughout training
-- Compares model performance between least-squares and neural network approaches
+## Key Features
+- Simple least-squares classifier as a baseline
+- Custom linear layers with manual forward and backward passes
+- **ReLU** activation and **Mean Squared Error** loss
+- Gradient descent training loop with optional loss/accuracy plots
+- Visualization of sample digits and predictions
 
 ## Technologies Used
-
 - Python 3
 - NumPy
-- Jupyter Notebook (for experimentation & visualization)
-- Matplotlib (optional, for loss/accuracy visualization)
+- Matplotlib (for plotting loss/accuracy and digit images)
+- Jupyter Notebook
 
-## Architecture Overview
-
-1. **Least Squares Classifier**
-   - Implements a linear model trained using normal equations
-   - Performs prediction via matrix multiplication
-   - Evaluates performance with classification accuracy
-
-2. **Neural Network Components**
-   - **Linear Layer**: Matrix multiplication with stored weights
-   - **ReLU Activation**: Element-wise nonlinearity
-   - **Loss Layer**: Mean Squared Error with backward pass
-   - **Forward/Backward Propagation**: Modular, layer-by-layer
-   - **Gradient Descent**: Custom training loop with weight updates
-
-3. **Training Process**
-   - Uses batches of training data
-   - Propagates through layers (forward)
-   - Computes gradients (backward)
-   - Updates weights using gradients and a learning rate
-
-4. **Evaluation & Testing**
-   - Accuracy measured on held-out test data
-   - Failure cases visualized
-   - Optional hyperparameter tuning for optimization
-
-## Sample Results
-
+## Network Architecture and Training
+The neural network defined in `Entree_Task_Walter_Magill_f0055t2.ipynb` uses the architecture:
 ```
-Training Accuracy (Least Squares): 82.5%
-Training Accuracy (Neural Network): 91.2%
-Test Accuracy (Neural Network): 88.7%
+Input (28×28 → 784) → Linear(784, 256) → ReLU → Linear(256, 10)
 ```
+Training is performed with mini-batch gradient descent. All operations – forward propagation, backward propagation, and weight updates – are programmed manually without external deep learning libraries.
 
-## Repository Structure
+The notebook also includes a function to plot training loss and testing accuracy over epochs.
 
-```
-Build-My-Own-Neural-Network/
-├── least_squares_classifier.py      # Least squares classification
-├── neural_network.py                # Neural network model
-├── layers/
-│   ├── linear_layer.py              # Linear layer class
-│   ├── relu_layer.py                # ReLU activation
-│   └── loss_layer.py                # MSE loss function
-├── train_and_test.py                # Training logic and evaluation
-├── data/
-│   ├── train_data.txt               # 1000 samples (28x28 -> 784 vector)
-│   ├── test_data.txt
-│   ├── train_labels.txt
-│   └── test_labels.txt
-└── README.md
-```
+## Evaluation Results
+From the included notebooks:
+- **Least Squares Classifier** (baseline) reaches ~72% training accuracy and ~42% test accuracy.
+  ```
+  Training accuracy is: 0.721
+  Testing accuracy is: 0.42
+  ```
+- **Neural Network** achieves around 86% test accuracy after 200 epochs.
+  ```
+  Epoch:  200 / 200  | Train loss:  0.02902708029259433  | Test Accuracy :  0.86
+  ```
 
 ## How to Run
+1. Install dependencies:
+   ```bash
+   pip install numpy matplotlib
+   ```
+2. Launch Jupyter Notebook and open one of the notebooks:
+   - `Appetizer_Task_Walter_Magill_f0055t2.ipynb` – least-squares baseline
+   - `Entree_Task_Walter_Magill_f0055t2.ipynb` – neural network implementation
+3. Execute the cells to train and evaluate the models. The notebooks load the dataset from the **MNIST_Sub** folder by default.
 
-Ensure you have Python 3 and NumPy installed:
+## Example Outputs
+During training the notebooks print loss and accuracy for each epoch and display example digit images with predicted labels. Misclassified digits are highlighted in red while correct predictions are shown in green.
 
-```bash
-pip install numpy
+## Directory Structure
 ```
-
-Run the training script:
-
-```bash
-python train_and_test.py
+Build-My-Own-Neural-Network/
+├── Appetizer_Task_Walter_Magill_f0055t2.ipynb  # Baseline classifier
+├── Entree_Task_Walter_Magill_f0055t2.ipynb     # Neural network notebook
+├── MNIST_Sub/                                  # MNIST subset (1000 train / 200 test)
+│   ├── train_data.txt
+│   ├── train_labels.txt
+│   ├── test_data.txt
+│   └── test_labels.txt
+├── README.md
 ```
-
-You can tweak architecture settings, learning rate, and epochs in the script.
-
-## Future Improvements
-
-- Add bias terms to the linear layers
-- Implement new activation functions (e.g., Leaky ReLU, Sigmoid)
-- Extend to convolutional layers for better performance on image data
-- Use PyTorch or TensorFlow to compare with industry-standard frameworks
+This repository is completely self-contained and offers a clear demonstration of building and training a neural network without relying on external deep learning frameworks.
